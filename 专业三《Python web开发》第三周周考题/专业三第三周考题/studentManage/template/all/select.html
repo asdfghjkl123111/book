@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看</title>
+</head>
+<body>
+
+    <form action="{% url 'student:select' %}" method="get">{% csrf_token %}
+    <div>
+        <tr>
+            <td><input type="text" name="sname"></td>
+            <td><input type="text" name="garde"></td>
+            <td><input type="submit" value="搜索"></td>
+        </tr>
+    </div>
+        <table border="1">
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>语文</td>
+                <td>数学</td>
+                <td>英语</td>
+                <td>教室</td>
+                <td>修改</td>
+                <td>删除</td>
+            </tr>
+            {% for i in data %}
+                <tr>
+                    <td>{{ i.num }}</td>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.chinese }}</td>
+                    <td>{{ i.maths }}</td>
+                    <td>{{ i.english }}</td>
+                    <td>{{ i.cls.cname }}</td>
+                    <td><a href="{% url 'student:update' %}?id={{ i.id }}">修改</a></td>
+                    <td><a href="{% url 'student:delete' %}?id={{ i.id }}">删除</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    <a href="{% url 'student:select' %}?page={{ pre }}&number={{ number }}&garde={{ garde }}&cname={{ cname }}">上一页</a>
+    <span>'当前第{{ page }}页'</span>
+    <a href="{% url 'student:select' %}?page={{ next }}&number={{ number }}&garde={{ garde }}&cname={{ cname }}">下一页</a>
+<div><button><a href="{% url 'student:insert' %}">添加</a></button><button><a href="{% url 'student:out' %}">退出</a></button> </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,81 @@
+安装git
+    Git.64.exe
+    checkout as_is 选择
+
+git config --gloabl user.name ""  #github的用户名
+git config --global user.email ""  #在github中的邮箱
+
+创建版本库：
+    创建文件夹  versionlib文件夹 
+    git init 把这个目录编程Git可以管理的仓库
+    注意：千万不要手动修改.git目录里的文件
+
+    把文件添加到版本库
+        新建文件test.txt 
+        git add test.txt            #把文件添加到仓库
+        git commit -m "注释信息"     #把文件提交到仓库
+
+        git status                  #查看版本库的状态
+        git log                     #查看版本库提交的日志
+        git log --pretty=online     #只显示版本提交的版本号
+        git diff                    #查看修改内容
+
+        版本回退：
+        git reset --hard HEAD^      #回退到上一个版本号
+        git reset --hard HEAD^^     #回退到上上一个版本号 
+        git reset --hard HEAD~100   #回退到上100个版本号
+        git reset --hard 具体的版本号#回退带具体的版本号 
+
+        git checkout -- fileName 撤销 
+            #如果fileName文件修改后还没有被放到暂存区，现在，撤销修改就会回到和版本库一模一样的状态
+            #如果fileName文件已经添加到暂存区后，又做了修改，现在，撤销修改就会回到添加到暂存区后的状态
+            #总之，就是让这个fileName文件回到最后一次git commit或者git add 时的状态
+
+        连接远程仓库
+        ssh-keygen -t rsa -C "自己的邮箱" #一直回车  记住秘钥目录
+        id_rsa（私钥） id_rsa.pub(公钥)
+
+        登录GitHub官网 settings---ssh and GPG keys----new ssh key---add ssh key #添加钥匙
+
+        测试钥匙是否通过
+        ssh -T git@github.com
+
+        创建远程仓库  点击小猫头像
+
+        关联远程仓库地址
+            git remote add origin 远程仓库地址
+            git remote rm origin 删除关联
+        
+        先把远程仓库的内容拉的本地
+            git pull origin master
+            git pull origin master --allow-unrelated-histories #Git版本问题  如果没有拉取远程仓库数据试试这个命令
+
+            git push origin master #推到远程版本库 需要先把远程库内容拉到本地，否则会报错
+
+            git clone 远程库地址  #克隆远程库的内容
+
+            .gitignore  #忽略特殊文件 不想往远程库提交的文件  写入这个文件
+
+        创建分支：
+            git branch 分支名
+        
+        切换分支：
+            git checkout 分支名
+        
+        创建与切换同时进行  git checkout -b 分支名
+
+        git push --set-upstream origin 分支名 #把分支推到远程分支
+
+        git merge 分支名  合并分支
+
+
+        标签管理：
+            git tag "标签名"
+
+            git checkout "标签名"
+
+            git show "标签名"
+
+            git push origin "标签名"
+
+            

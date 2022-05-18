@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生</title>
+</head>
+<body>
+
+    <form method="get">{% csrf_token %}
+    <div>
+            <select name="search">
+                <option>选择类型</option>
+                {% for i in list_get %}
+                <option value={{ i.0 }}>{{ i }}</option>
+                {% endfor %}
+            </select>
+            <td><input type="submit" value="搜索"></td>
+    </div>
+        <table border="1">
+            <tr>
+                <td>姓名</td>
+                <td>事由</td>
+                <td>状态</td>
+                <td>类型</td>
+                <td>操作</td>
+            </tr>
+            {% for i in data %}
+                <tr>
+                <td>{{ i.stu_name }}</td>
+                <td>{{ i.context }}</td>
+                <td>{{ i.get_status_display }}</td>
+                <td>{{ i.tid.tname }}</td>
+                <td><a href="{% url 'myapp:permit' %}?status=1&id={{ i.id }}">通过</a></td>
+                <td><a href="{% url 'myapp:permit' %}?status=2&id={{ i.id }}">不通过</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+    <a href="{% url 'myapp:treach' %}?number={{ number }}&page={{ pre }}">上一页</a>
+<a href="{% url 'myapp:treach' %}?number={{ number }}&page={{ next }}">下一页</a>
+</body>
+</html>
